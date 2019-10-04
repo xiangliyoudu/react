@@ -20,8 +20,13 @@ export default class CommentAdd extends React.Component {
         let addComment = this.props.addComment;
         // 收集数据
         let { user, content } = this.state;
-        // 添加数据        
-        addComment({ user: user.trim(), content: content.trim() })
+        // 过滤空串
+        user = user.trim();
+        content = content.trim();
+        if (user && content) {
+            // 添加数据        
+            addComment({ user, content })
+        }
         //　清空输入框
         this.setState({
             user: '',

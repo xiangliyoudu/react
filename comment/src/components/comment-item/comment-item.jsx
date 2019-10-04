@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PubSub from 'pubsub-js';
 
 import './commentItem.css'
 
@@ -8,14 +7,14 @@ export default class CommentItem extends React.Component {
 
     static propsTypes = {
         comment: PropTypes.object.isRequired,
+        deleteComment: PropTypes.func.isRequired,
         id: PropTypes.number.isRequired
     }
 
-    handleDelete = (e) => {
-        e.preventDefault();
-        let { id } = this.props;
+    handleDelete = () => {
+        let { id, deleteComment } = this.props;
         if (window.confirm('确认删除？')) {
-            PubSub.publish('deleteComment', id);
+            deleteComment(id);
         }
     }
 
@@ -25,7 +24,7 @@ export default class CommentItem extends React.Component {
         return (
             <li className="list-group-item">
                 <div className="handle">
-                    <a onClick={this.handleDelete} href="#">delete</a>
+                    <button onClick={this.handleDelete} href="#">delete</button>
                     <p className="user">
                         <span>{comment.user}</span>
                         <span>说：</span>

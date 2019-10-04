@@ -6,14 +6,17 @@ import './commentList.css'
 export default class CommentList extends React.Component {
     // 给组件 类 指定属性
     static propTypes = {
-        comments: PropTypes.array.isRequired
+        comments: PropTypes.array.isRequired,
+        deleteComment: PropTypes.func.isRequired
     }
 
     render() {
-        let { comments } = this.props;
+        let { comments, deleteComment } = this.props;
         let ifShow = comments.length > 0;
         let items = comments.map((item, index) => {
-            return <CommentItem key={index} id={index} comment={item}></CommentItem>
+            return <CommentItem key={index} id={index}
+                comment={item} deleteComment={deleteComment}>
+            </CommentItem>
         });
 
         if (!ifShow) {
